@@ -39,6 +39,10 @@ class Task{
     {
         return id;
     }
+    void set_id(int i)
+    {
+        id = i;
+    }
     std::string get_creation_date()
     {
         return creation_date;
@@ -57,15 +61,20 @@ void display_tasks(std::vector<Task>& tasks)
     }
 }
 
-void add_task(std::vector<Task>& tasks, std::string name)
+void add_task(std::vector<Task>& tasks, std::string name, int& u_id)
 {
-    int id = tasks.size();
+    int id = u_id;
     Task task(id,name);
     tasks.push_back(task);
+    u_id++;
 }
 
 void remove_task(std::vector<Task>& tasks, int id)
 {
+    for (int i = id+1; i <= (tasks.size()-id); i++)
+    {
+        tasks[i].set_id(tasks[i].get_id()-1);
+    }
     tasks.erase(tasks.begin() + id);
 }
 
@@ -170,6 +179,7 @@ int main()
 {
     std::vector<Task> tasks;
     load_tasks(tasks);
+    int unique_id = 0;
     int action;
     std::cout << "Welcome to Task Management Tool!\n";
     std::cout << "What do you want to do?\n1. Display tasks [1]\n2. Add task [2]\n3. Remove task [3]\n4. Save Tasks [4]\n5. Exit [5]\n";
@@ -194,7 +204,7 @@ int main()
                 std::cout << "Enter a name: ";
                 std::cin.ignore();
                 std::getline(std::cin, a_name);
-                add_task(tasks, a_name);
+                add_task(tasks, a_name, unique_id);
             }
             else if(action == 3)
             {
