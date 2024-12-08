@@ -179,7 +179,7 @@ int main()
 {
     std::vector<Task> tasks;
     load_tasks(tasks);
-    int unique_id = 0;
+    int unique_id = tasks.size();
     int action;
     std::cout << "Welcome to Task Management Tool!\n";
     std::cout << "What do you want to do?\n1. Display tasks [1]\n2. Add task [2]\n3. Remove task [3]\n4. Save Tasks [4]\n5. Exit [5]\n";
