@@ -1,0 +1,1 @@
+Simple console Task Management Tool written in C++. When user saves tasks for the first time, it creates 3 files in the same directory where main.cpp is located; when a program opened after, it loads from these files. You can compile this file using GNU C++ Compiler. 
