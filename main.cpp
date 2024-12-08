@@ -58,26 +58,6 @@ void display_tasks(std::vector<Task>& tasks)
     }
 }
 
-void add_task(std::vector<Task>& tasks, std::string name, int& u_id)
-{
-    int id = u_id;
-    Task task(id,name);
-    tasks.push_back(task);
-    u_id++;
-}
-
-void remove_task(std::vector<Task>& tasks, int id)
-{
-    for (int i = 0; i < tasks.size(); i++)
-    {
-        if (tasks[i].get_id() > id)
-        {
-            tasks[i].set_id(tasks[i].get_id()-1);
-        }
-    }
-    tasks.erase(tasks.begin() + id);
-}
-
 void save_ids(std::vector<Task>& tasks)
 {
     std::ofstream ids("ids.txt");
@@ -175,6 +155,28 @@ void load_tasks(std::vector<Task>& tasks)
     }
 }
 
+void add_task(std::vector<Task>& tasks, std::string name, int& u_id)
+{
+    int id = u_id;
+    Task task(id,name);
+    tasks.push_back(task);
+    u_id++;
+    save_tasks(tasks);
+}
+
+void remove_task(std::vector<Task>& tasks, int id)
+{
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        if (tasks[i].get_id() > id)
+        {
+            tasks[i].set_id(tasks[i].get_id()-1);
+        }
+    }
+    tasks.erase(tasks.begin() + id);
+    save_tasks(tasks);
+}
+
 int main()
 {
     std::vector<Task> tasks;
@@ -182,7 +184,7 @@ int main()
     int unique_id = tasks.size();
     int action;
     std::cout << "Welcome to Task Management Tool!\n";
-    std::cout << "What do you want to do?\n1. Display tasks [1]\n2. Add task [2]\n3. Remove task [3]\n4. Save Tasks [4]\n5. Exit [5]\n";
+    std::cout << "What do you want to do?\n1. Display tasks [1]\n2. Add task [2]\n3. Remove task [3]\n4. Exit [4]\n";
     while(true)
     {
         std::cout << "Action: ";
@@ -214,10 +216,6 @@ int main()
                 remove_task(tasks,r_id);
             }
             else if(action == 4)
-            {
-                save_tasks(tasks);
-            }
-            else if(action == 5)
             {
                 exit(0);
             }
