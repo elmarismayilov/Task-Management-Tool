@@ -11,10 +11,7 @@ class Task{
     Task(int i, std::string n)
     {
         id = i;
-        if (n.size() != 0 && n.size() <= 40)
-        {
-            name = n;
-        }
+        name = n;
         std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
         std::time_t now_time = std::chrono::system_clock::to_time_t(now);
         std::tm local_time = *std::localtime(&now_time);
@@ -71,9 +68,12 @@ void add_task(std::vector<Task>& tasks, std::string name, int& u_id)
 
 void remove_task(std::vector<Task>& tasks, int id)
 {
-    for (int i = id+1; i <= (tasks.size()-id); i++)
+    for (int i = 0; i < tasks.size(); i++)
     {
-        tasks[i].set_id(tasks[i].get_id()-1);
+        if (tasks[i].get_id() > id)
+        {
+            tasks[i].set_id(tasks[i].get_id()-1);
+        }
     }
     tasks.erase(tasks.begin() + id);
 }
